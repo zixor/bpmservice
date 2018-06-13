@@ -31,8 +31,8 @@ public class HelloWorldController {
     }
 
     @RequestMapping(path = "locations", method = RequestMethod.GET, produces = "application/json")
-    public Response locations(@RequestParam(value = "lang", defaultValue = "en") String language) {
-        return  Response.status(Response.Status.OK).entity(getLocations(language)).build();
+    public ResponseEntity locations(@RequestParam(value = "lang", defaultValue = "en") String language) {
+        return  ResponseEntity.ok(getLocations(language));
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
