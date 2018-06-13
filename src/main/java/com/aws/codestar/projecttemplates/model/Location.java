@@ -1,6 +1,8 @@
 package com.aws.codestar.projecttemplates.model;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable{
 
     private Integer language_id;
     private String name;
