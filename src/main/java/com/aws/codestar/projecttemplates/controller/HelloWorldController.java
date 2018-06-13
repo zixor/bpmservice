@@ -73,12 +73,7 @@ public class HelloWorldController {
         lst.add(new Location(27, "Japanese", "ja", "ja"));
         lst.add(new Location(29, "Korean", "ko", "ko"));
         lst.add(new Location(30, "Malay", "ms", "ms"));
-
-        if (!StringUtils.isEmpty(filterIso)) {
-            lst = lst.stream()
-                    .filter(location -> location.getIso_639_1().equals(filterIso))
-                    .collect(Collectors.toList());
-        }
+        
         return lst;
     }
 }
