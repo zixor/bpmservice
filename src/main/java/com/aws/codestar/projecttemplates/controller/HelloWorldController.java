@@ -32,7 +32,11 @@ public class HelloWorldController {
 
     @RequestMapping(path = "locations", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity locations(@RequestParam(value = "lang", defaultValue = "en") String language) {
-        return  ResponseEntity.ok(getLocations(language));
+        try {
+            return ResponseEntity.ok(getLocations(language));
+        } catch (Exception e) {
+            return ResponseEntity.ok(e.getMessage());
+        }
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
@@ -73,7 +77,7 @@ public class HelloWorldController {
         lst.add(new Location(27, "Japanese", "ja", "ja"));
         lst.add(new Location(29, "Korean", "ko", "ko"));
         lst.add(new Location(30, "Malay", "ms", "ms"));
-        
+
         return lst;
     }
 }
