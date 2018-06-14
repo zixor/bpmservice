@@ -40,45 +40,148 @@ public class HelloWorldController {
 
     private String createResponse(String filterIso) {
 
-        JSONObject jsonObject1 = new JSONObject();
-        jsonObject1.put("language_id", 15);
-        jsonObject1.put("name", "English");
-        jsonObject1.put("iso_639_1", "en");
-        jsonObject1.put("locale_language", "en");
+        JSONObject jsonObject = new JSONObject();
+        if (StringUtils.isEmpty(filterIso) || filterIso.equalsIgnoreCase("en")) {
+            jsonObject.put("language_id", 15);
+            jsonObject.put("name", "English");
+            jsonObject.put("iso_639_1", "en");
+            jsonObject.put("locale_language", "en");
+        }
 
-        return jsonObject1.toString();
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("af")) {
+            jsonObject.put("language_id", 1);
+            jsonObject.put("name", "Afrikaans");
+            jsonObject.put("iso_639_1", "af");
+            jsonObject.put("locale_language", "af");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("ar")) {
+            jsonObject.put("language_id", 2);
+            jsonObject.put("name", "Arabic");
+            jsonObject.put("iso_639_1", "ar");
+            jsonObject.put("locale_language", "ar");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("hy")) {
+            jsonObject.put("language_id", 3);
+            jsonObject.put("name", "Armenian");
+            jsonObject.put("iso_639_1", "hy");
+            jsonObject.put("locale_language", "hy");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("bn")) {
+            jsonObject.put("language_id", 5);
+            jsonObject.put("name", "Bengali");
+            jsonObject.put("iso_639_1", "bn");
+            jsonObject.put("locale_language", "bn");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("bg")) {
+            jsonObject.put("language_id", 6);
+            jsonObject.put("name", "Bulgarian");
+            jsonObject.put("iso_639_1", "bg");
+            jsonObject.put("locale_language", "bg");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("my")) {
+            jsonObject.put("language_id", 7);
+            jsonObject.put("name", "Burmese");
+            jsonObject.put("iso_639_1", "my");
+            jsonObject.put("locale_language", "my");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("zh-hk")) {
+            jsonObject.put("language_id", 8);
+            jsonObject.put("name", "Chinese-Cantonese");
+            jsonObject.put("iso_639_1", "zh");
+            jsonObject.put("locale_language", "zh-hk");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("ca")) {
+            jsonObject.put("language_id", 9);
+            jsonObject.put("name", "Catalan");
+            jsonObject.put("iso_639_1", "ca");
+            jsonObject.put("locale_language", "ca");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("hr")) {
+            jsonObject.put("language_id", 10);
+            jsonObject.put("name", "Croatian");
+            jsonObject.put("iso_639_1", "hr");
+            jsonObject.put("locale_language", "hr");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("cs")) {
+            jsonObject.put("language_id", 11);
+            jsonObject.put("name", "Czech");
+            jsonObject.put("iso_639_1", "cs");
+            jsonObject.put("locale_language", "cs");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("da")) {
+            jsonObject.put("language_id", 12);
+            jsonObject.put("name", "Danish");
+            jsonObject.put("iso_639_1", "da");
+            jsonObject.put("locale_language", "da");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("dr")) {
+            jsonObject.put("language_id", 13);
+            jsonObject.put("name", "Dari");
+            jsonObject.put("iso_639_1", "dr");
+            jsonObject.put("locale_language", "dr");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("nl")) {
+            jsonObject.put("language_id", 14);
+            jsonObject.put("name", "Dutch");
+            jsonObject.put("iso_639_1", "nl");
+            jsonObject.put("locale_language", "nl");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("it")) {
+            jsonObject.put("language_id", 26);
+            jsonObject.put("name", "Italian");
+            jsonObject.put("iso_639_1", "it");
+            jsonObject.put("locale_language", "it");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("fr")) {
+            jsonObject.put("language_id", 19);
+            jsonObject.put("name", "French-Parisian");
+            jsonObject.put("iso_639_1", "fr");
+            jsonObject.put("locale_language", "fr");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("de")) {
+            jsonObject.put("language_id", 20);
+            jsonObject.put("name", "German");
+            jsonObject.put("iso_639_1", "de");
+            jsonObject.put("locale_language", "de");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("hi")) {
+            jsonObject.put("language_id", 23);
+            jsonObject.put("name", "Hindi");
+            jsonObject.put("iso_639_1", "hi");
+            jsonObject.put("locale_language", "hi");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("ja")) {
+            jsonObject.put("language_id", 23);
+            jsonObject.put("name", "Japanese");
+            jsonObject.put("iso_639_1", "ja");
+            jsonObject.put("locale_language", "ja");
+        }
+
+        if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase("ko")) {
+            jsonObject.put("language_id", 23);
+            jsonObject.put("name", "Korean");
+            jsonObject.put("iso_639_1", "ko");
+            jsonObject.put("locale_language", "ko");
+        }
+        
+        return jsonObject.toString();
     }
 
-    public List<Location> getLocations(String filterIso) {
-        List<Location> lst = new ArrayList<>();
-        lst.add(new Location(1, "Afrikaans", "af", "af"));
-        lst.add(new Location(2, "Arabic", "ar", "ar"));
-        lst.add(new Location(3, "Armenian", "hy", "hy"));
-        lst.add(new Location(5, "Bengali", "bn", "bn"));
-        lst.add(new Location(6, "Bulgarian", "bg", "bg"));
-        lst.add(new Location(7, "Burmese", "my", "my"));
-        lst.add(new Location(8, "Chinese-Cantonese", "zh", "zh-hk"));
-        lst.add(new Location(9, "Catalan", "ca", "ca"));
-        lst.add(new Location(10, "Croatian", "hr", "hr"));
-        lst.add(new Location(11, "Czech", "cs", "cs"));
-        lst.add(new Location(12, "Danish", "da", "da"));
-        lst.add(new Location(13, "Dari", "dr", "dr"));
-        lst.add(new Location(14, "Dutch", "nl", "nl"));
-        lst.add(new Location(15, "English", "en", "en"));
-        lst.add(new Location(16, "Farsi", "fa", "fa"));
-        lst.add(new Location(17, "Finnish", "fi", "fi"));
-        lst.add(new Location(18, "Flemish", "fl", "fl"));
-        lst.add(new Location(19, "French-Parisian", "fr", "fr-fr"));
-        lst.add(new Location(20, "German", "de", "de"));
-        lst.add(new Location(21, "Greek", "el", "el"));
-        lst.add(new Location(22, "Hebrew", "he", "he"));
-        lst.add(new Location(23, "Hindi", "hi", "hi"));
-        lst.add(new Location(24, "Hungarian", "hu", "hu"));
-        lst.add(new Location(26, "Italian", "it", "it"));
-        lst.add(new Location(27, "Japanese", "ja", "ja"));
-        lst.add(new Location(29, "Korean", "ko", "ko"));
-        lst.add(new Location(30, "Malay", "ms", "ms"));
-
-        return lst;
-    }
 }
