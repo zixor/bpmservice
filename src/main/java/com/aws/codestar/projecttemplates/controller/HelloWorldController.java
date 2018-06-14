@@ -20,33 +20,60 @@ import java.util.stream.Collectors;
  * Basic Spring web service controller that handles all GET requests.
  */
 @RestController
+@RequestMapping("/")
 public class HelloWorldController {
 
+    private static final String MESSAGE_FORMAT = "Hello %s!";
+
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity helloWorldGet(@RequestParam(value = "lang", defaultValue = "en") String name) {
+    public ResponseEntity helloWorldGet(@RequestParam(value = "name", defaultValue = "World") String name) {
         return ResponseEntity.ok(createResponse(name));
     }
 
-    @RequestMapping(path = "/locations", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(path = "locations", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity locations(@RequestParam(value = "lang", defaultValue = "en") String language) {
-        return ResponseEntity.ok(createResponse(language));
+        try {
+            return ResponseEntity.ok(getLocations(language));
+        } catch (Exception e) {
+            return ResponseEntity.ok(e.getMessage());
+        }
+    }
+
+    @RequestMapping(method = RequestMethod.POST, produces = "application/json")
+    public ResponseEntity helloWorldPost(@RequestParam(value = "name", defaultValue = "World") String name) {
+        return ResponseEntity.ok(createResponse(name));
     }
 
     private String createResponse(String filterIso) {
+
+        List<Location> locations = getLocations(filterIso);
+
         JSONArray array = new JSONArray();
-        //Location location = getLocations(filterIso);
         JSONObject jsonObject1 = new JSONObject();
-        jsonObject1.put("language_id", 15);
-        jsonObject1.put("name", "English");
-        jsonObject1.put("iso_639_1", "en");
-        jsonObject1.put("locale_language", "en");
+        jsonObject1.put("language_id", 1);
+        jsonObject1.put("name", "Afrikaans");
+        jsonObject1.put("iso_639_1", "af");
+        jsonObject1.put("locale_language", "af");
         array.put(jsonObject1);
-        return array.toString();
+
+        JSONObject jsonObject2 = new JSONObject();
+        jsonObject2.put("language_id", 1);
+        jsonObject2.put("name", "Afrikaans");
+        jsonObject2.put("iso_639_1", "af");
+        jsonObject2.put("locale_language", "af");
+        array.put(jsonObject2);
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("language_id", 1);
+        jsonObject.put("name", "Afrikaans");
+        jsonObject.put("iso_639_1", "af");
+        jsonObject.put("locale_language", "af");
+        jsonObject.put("locales", array);
+        return jsonObject.toString();
     }
 
-    public Location getLocations(String filterIso) {
-        Location location = new Location();
-        List<Location> lst = new ArrayList<Location>();
+    public List<Location> getLocations(String filterIso) {
+        List<Location> lst = new ArrayList<>();
         lst.add(new Location(1, "Afrikaans", "af", "af"));
         lst.add(new Location(2, "Arabic", "ar", "ar"));
         lst.add(new Location(3, "Armenian", "hy", "hy"));
@@ -75,13 +102,11 @@ public class HelloWorldController {
         lst.add(new Location(29, "Korean", "ko", "ko"));
         lst.add(new Location(30, "Malay", "ms", "ms"));
 
-        for (Location locationx : lst) {
-            if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase(locationx.getLocale_language())) {
-                location = locationx;
-                break;
-            }
-
+        if (!StringUtils.isEmpty(filterIso)) {
+            lst = lst.stream()
+                    .filter(location -> location.getIso_639_1().equals(filterIso))
+                    .collect(Collectors.toList());
         }
-        return location;
+        return lst;
     }
 }
