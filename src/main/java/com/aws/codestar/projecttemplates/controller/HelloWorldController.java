@@ -45,7 +45,12 @@ public class HelloWorldController {
     }
 
     private String createResponse(String name) {
-        return new JSONObject().put("Output", String.format(MESSAGE_FORMAT, name)).toString();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("language_id", 1);
+        jsonObject.put("name", "Afrikaans");
+        jsonObject.put("iso_639_1", "af");
+        jsonObject.put("locale_language", "af");
+        return jsonObject.toString();
     }
 
     public List<Location> getLocations(String filterIso) {
