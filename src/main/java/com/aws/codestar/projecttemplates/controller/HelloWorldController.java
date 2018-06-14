@@ -23,20 +23,14 @@ import java.util.stream.Collectors;
 @RequestMapping("/")
 public class HelloWorldController {
 
-    private static final String MESSAGE_FORMAT = "Hello %s!";
-
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
-    public ResponseEntity helloWorldGet(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return ResponseEntity.ok(createResponse(name));
+    public ResponseEntity helloWorldGet(@RequestParam(value = "lang", defaultValue = "en") String language) {
+        return ResponseEntity.ok(createResponse(language));
     }
 
     @RequestMapping(path = "locations", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity locations(@RequestParam(value = "lang", defaultValue = "en") String language) {
-        try {
-            return ResponseEntity.ok(getLocations(language));
-        } catch (Exception e) {
-            return ResponseEntity.ok(e.getMessage());
-        }
+        return ResponseEntity.ok(createResponse(language));
     }
 
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
@@ -45,9 +39,6 @@ public class HelloWorldController {
     }
 
     private String createResponse(String filterIso) {
-
-        List<Location> locations = getLocations(filterIso);
-
         JSONArray array = new JSONArray();
         JSONObject jsonObject1 = new JSONObject();
         jsonObject1.put("language_id", 1);
@@ -102,11 +93,6 @@ public class HelloWorldController {
         lst.add(new Location(29, "Korean", "ko", "ko"));
         lst.add(new Location(30, "Malay", "ms", "ms"));
 
-        if (!StringUtils.isEmpty(filterIso)) {
-            lst = lst.stream()
-                    .filter(location -> location.getIso_639_1().equals(filterIso))
-                    .collect(Collectors.toList());
-        }
         return lst;
     }
 }
