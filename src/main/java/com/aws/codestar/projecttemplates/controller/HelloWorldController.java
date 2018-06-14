@@ -45,11 +45,28 @@ public class HelloWorldController {
     }
 
     private String createResponse(String name) {
+
+        JSONArray array = new JSONArray();
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("language_id", 1);
+        jsonObject1.put("name", "Afrikaans");
+        jsonObject1.put("iso_639_1", "af");
+        jsonObject1.put("locale_language", "af");
+        array.put(jsonObject1);
+
+        JSONObject jsonObject2 = new JSONObject();
+        jsonObject2.put("language_id", 1);
+        jsonObject2.put("name", "Afrikaans");
+        jsonObject2.put("iso_639_1", "af");
+        jsonObject2.put("locale_language", "af");
+        array.put(jsonObject2);
+
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("language_id", 1);
         jsonObject.put("name", "Afrikaans");
         jsonObject.put("iso_639_1", "af");
         jsonObject.put("locale_language", "af");
+        jsonObject.put("locales",array);
         return jsonObject.toString();
     }
 
