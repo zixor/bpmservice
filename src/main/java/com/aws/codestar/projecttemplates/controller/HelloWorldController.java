@@ -40,19 +40,23 @@ public class HelloWorldController {
 
     private String createResponse(String filterIso) {
         JSONArray array = new JSONArray();
-        JSONObject jsonObject1 = new JSONObject();
-        jsonObject1.put("language_id", 1);
-        jsonObject1.put("name", "Afrikaans");
-        jsonObject1.put("iso_639_1", "af");
-        jsonObject1.put("locale_language", "af");
-        array.put(jsonObject1);
 
-        JSONObject jsonObject2 = new JSONObject();
-        jsonObject2.put("language_id", 1);
-        jsonObject2.put("name", "Afrikaans");
-        jsonObject2.put("iso_639_1", "af");
-        jsonObject2.put("locale_language", "af");
-        array.put(jsonObject2);
+        //Nuevo
+        Location location = getLocations(filterIso).get(0);
+        JSONObject jsonObject3 = new JSONObject();
+        jsonObject3.put("language_id", location.getLanguage_id());
+        jsonObject3.put("name", location.getName());
+        jsonObject3.put("iso_639_1", location.getIso_639_1());
+        jsonObject3.put("locale_language", location.getLocale_language());
+        array.put(jsonObject3);
+        //Fin Nuevo
+
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("language_id", 15);
+        jsonObject1.put("name", "English");
+        jsonObject1.put("iso_639_1", "en");
+        jsonObject1.put("locale_language", "en");
+        array.put(jsonObject1);
 
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("language_id", 1);
