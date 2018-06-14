@@ -30,19 +30,18 @@ public class HelloWorldController {
 
     private String createResponse(String filterIso) {
         JSONArray array = new JSONArray();
-        List<Location> locations = getLocations(filterIso);
+        Location location = getLocations(filterIso);
         JSONObject jsonObject1 = new JSONObject();
-        locations.forEach(location -> {
-            jsonObject1.put("language_id", location.getLanguage_id());
-            jsonObject1.put("name", location.getName());
-            jsonObject1.put("iso_639_1", location.getIso_639_1());
-            jsonObject1.put("locale_language", location.getLocale_language());
-            array.put(jsonObject1);
-        });
+        jsonObject1.put("language_id", location.getLanguage_id());
+        jsonObject1.put("name", location.getName());
+        jsonObject1.put("iso_639_1", location.getIso_639_1());
+        jsonObject1.put("locale_language", location.getLocale_language());
+        array.put(jsonObject1);
         return array.toString();
     }
 
-    public List<Location> getLocations(String filterIso) {
+    public Location getLocations(String filterIso) {
+        Location location = new Location();
         List<Location> lst = new ArrayList<>();
         lst.add(new Location(1, "Afrikaans", "af", "af"));
         lst.add(new Location(2, "Arabic", "ar", "ar"));
@@ -72,11 +71,13 @@ public class HelloWorldController {
         lst.add(new Location(29, "Korean", "ko", "ko"));
         lst.add(new Location(30, "Malay", "ms", "ms"));
 
-        if (!StringUtils.isEmpty(filterIso)) {
-            lst = lst.stream()
-                    .filter(location -> location.getIso_639_1().equals(filterIso))
-                    .collect(Collectors.toList());
+        for (Location locationx : lst) {
+            if (!StringUtils.isEmpty(filterIso) && filterIso.equalsIgnoreCase(locationx.getLocale_language())) {
+                location = locationx;
+                break;
+            }
+
         }
-        return lst;
+        return location;
     }
 }
