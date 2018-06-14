@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
  * Basic Spring web service controller that handles all GET requests.
  */
 @RestController
-@RequestMapping("/")
 public class HelloWorldController {
 
     @RequestMapping(path = "/locations", method = RequestMethod.GET, produces = "application/json")
