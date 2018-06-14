@@ -22,6 +22,11 @@ import java.util.stream.Collectors;
 @RestController
 public class HelloWorldController {
 
+    @RequestMapping(method = RequestMethod.GET, produces = "application/json")
+    public ResponseEntity helloWorldGet(@RequestParam(value = "lang", defaultValue = "en") String name) {
+        return ResponseEntity.ok(createResponse(name));
+    }
+
     @RequestMapping(path = "/locations", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity locations(@RequestParam(value = "lang", defaultValue = "en") String language) {
         return ResponseEntity.ok(createResponse(language));
@@ -29,19 +34,19 @@ public class HelloWorldController {
 
     private String createResponse(String filterIso) {
         JSONArray array = new JSONArray();
-        Location location = getLocations(filterIso);
+        //Location location = getLocations(filterIso);
         JSONObject jsonObject1 = new JSONObject();
-        jsonObject1.put("language_id", location.getLanguage_id());
-        jsonObject1.put("name", location.getName());
-        jsonObject1.put("iso_639_1", location.getIso_639_1());
-        jsonObject1.put("locale_language", location.getLocale_language());
+        jsonObject1.put("language_id", 15);
+        jsonObject1.put("name", "English");
+        jsonObject1.put("iso_639_1", "en");
+        jsonObject1.put("locale_language", "en");
         array.put(jsonObject1);
         return array.toString();
     }
 
     public Location getLocations(String filterIso) {
         Location location = new Location();
-        List<Location> lst = new ArrayList<>();
+        List<Location> lst = new ArrayList<Location>();
         lst.add(new Location(1, "Afrikaans", "af", "af"));
         lst.add(new Location(2, "Arabic", "ar", "ar"));
         lst.add(new Location(3, "Armenian", "hy", "hy"));
