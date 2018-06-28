@@ -1,18 +1,19 @@
 package com.aws.codestar.projecttemplates.controller;
 
+import com.aws.codestar.projecttemplates.model.Cast;
+import com.aws.codestar.projecttemplates.model.DubbingCastCrew;
+import com.aws.codestar.projecttemplates.model.Feature;
 import com.aws.codestar.projecttemplates.model.Location;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -36,6 +37,12 @@ public class HelloWorldController {
     @RequestMapping(method = RequestMethod.POST, produces = "application/json")
     public ResponseEntity helloWorldPost(@RequestParam(value = "name", defaultValue = "World") String name) {
         return ResponseEntity.ok(createResponse(name));
+    }
+
+    @RequestMapping(path = "/dubbing/{language}", method = RequestMethod.GET, produces = "application/json")
+    @ResponseBody
+    public ResponseEntity<?> getCastNCrew(@RequestParam(value = "language", defaultValue = "en") String language) {
+        return new ResponseEntity<DubbingCastCrew>(mockDubbingInformation(), HttpStatus.OK);
     }
 
     private String createResponse(String filterIso) {
@@ -182,6 +189,35 @@ public class HelloWorldController {
         }
         
         return jsonObject.toString();
+    }
+
+    private DubbingCastCrew mockDubbingInformation() {
+        Feature feature = new Feature();
+        feature.setLegalTitle("THOR RAGNAROK");
+        feature.setTitle("Thor: Ragnarok");
+        feature.setMpmProductId("00000007500000000038063");
+        feature.setEidr("10.52407C8CF-28A3-347E-307E-DFDC-2");
+        feature.setRadarLanguage("English");
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, 2017);
+        calendar.set(Calendar.MONTH, 6);
+        calendar.set(Calendar.DAY_OF_MONTH, 11);
+        feature.setRadarReleaseDate(calendar.getTime());
+
+        List<Cast> castList = new ArrayList<>();
+        castList.add(new Cast("1", "Chris", "Hemsworth", "Thor"));
+        castList.add(new Cast("2", "Tom", "Hiddelston", "Loki"));
+        castList.add(new Cast("3", "Cate", "Blanchett", "Heia"));
+        castList.add(new Cast("4", "Idris", "Elba", "Heimdall"));
+        castList.add(new Cast("5", "Jeff", "Goldblum", "Grandmaster"));
+        castList.add(new Cast("6", "Tesa", "Thomposn", "Valkyrie"));
+
+        DubbingCastCrew dubbingCastCrew = new DubbingCastCrew();
+        dubbingCastCrew.setProductCompany("Marvel");
+        dubbingCastCrew.setFeature(feature);
+        dubbingCastCrew.setCastList(castList);
+        dubbingCastCrew.setReviewComments("Some comments");
+        return dubbingCastCrew;
     }
 
 }
