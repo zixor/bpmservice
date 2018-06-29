@@ -6,6 +6,8 @@ import com.aws.codestar.projecttemplates.model.Feature;
 import com.aws.codestar.projecttemplates.model.Location;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
@@ -24,6 +26,8 @@ import java.util.stream.Collectors;
 @RequestMapping("/")
 public class HelloWorldController {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @RequestMapping(method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity helloWorldGet(@RequestParam(value = "lang", defaultValue = "en") String language) {
         return ResponseEntity.ok(createResponse(language));
@@ -41,8 +45,13 @@ public class HelloWorldController {
 
     @RequestMapping(path = "/dubbing/{language}", method = RequestMethod.GET, produces = "application/json")
     @ResponseBody
-    public ResponseEntity<?> getCastNCrew(@RequestParam(value = "language", defaultValue = "en") String language) {
-        return new ResponseEntity<DubbingCastCrew>(mockDubbingInformation(), HttpStatus.OK);
+    public ResponseEntity<DubbingCastCrew> getCastNCrew(@RequestParam(value = "language", defaultValue = "en") String language) {
+        try {
+            return new ResponseEntity<DubbingCastCrew>(mockDubbingInformation(), HttpStatus.OK);
+        } catch (Exception e) {
+            logger.error(e.getLocalizedMessage());
+        }
+        return  null;
     }
 
     private String createResponse(String filterIso) {
@@ -187,7 +196,7 @@ public class HelloWorldController {
             jsonObject.put("iso_639_1", "ko");
             jsonObject.put("locale_language", "ko");
         }
-        
+
         return jsonObject.toString();
     }
 
